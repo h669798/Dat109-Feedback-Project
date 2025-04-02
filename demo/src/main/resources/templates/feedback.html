@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Tilbakemelding</title>
+    <link rel="stylesheet" href="../static/css/styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+</head>
+<body>
+<header>
+    <nav>
+        <ul>
+            <li><a href="index.html">Hjem</a></li>
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="stats.html">Statistics</a></li>
+            <li><a href="admin.html">Admin Panel</a></li>
+        </ul>
+    </nav>
+</header>
+<main>
+    <!--TODO: Ta QR kode et annet sted? Legge det ved Admin Panel så lærer kan vise?
+        TODO: Ha en "enter" knapp for tilbakemeldingen.
+        TODO: Man bør kunne velge knapp for tilbakemelding + legge inn tekst før man sender.
+        TODO: Koble tilbakemeldingen opp mot databasen så man kan se tilbake på den. -->
+    <div class="container">
+        <h2>Gi tilbakemelding</h2>
+        <br>
+        <p>Skann QR-koden for å gi tilbakemelding fra mobilen din:</p>
+        <br><br>
+        <canvas id="qrCode"></canvas>
+        <br><br>
+        <div class="buttons">
+            <button class="green" onclick="sendFeedback('Fornøyd')">🟢 Fornøyd</button>
+            <button class="yellow" onclick="sendFeedback('Passe fornøyd')">🟡 Passe fornøyd</button>
+            <button class="red" onclick="sendFeedback('Misfornøyd')">🔴 Misfornøyd</button>
+        </div>
+
+        <textarea id="feedbackText" placeholder="Skriv din tilbakemelding (maks 50 ord)" oninput="countWords()"></textarea>
+        <p id="wordCount">0 / 50 ord</p>
+    </div>
+
+    <script>
+        // Generer QR kode
+        var qr = new QRious({
+            element: document.getElementById('qrCode'),
+            value: window.location.href,
+            size: 150
+        });
+
+        function countWords() {
+            let text = document.getElementById("feedbackText").value;
+            let words = text.trim().split(/\s+/);
+            if (words.length > 50) {
+                document.getElementById("feedbackText").value = words.slice(0, 50).join(" ");
+            }
+            document.getElementById("wordCount").innerText = words.length + " / 50 ord";
+        }
+
+        function sendFeedback(choice) {
+            alert("Takk for din tilbakemelding: " + choice);
+        }
+    </script>
+</main>
+<footer>
+    <p>&copy; 2025 Feedback System</p>
+</footer>
+</body>
+</html>

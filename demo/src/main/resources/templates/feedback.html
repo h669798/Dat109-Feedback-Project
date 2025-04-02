@@ -14,9 +14,11 @@
     <nav>
         <ul>
             <li><a href="index.html">Hjem</a></li>
+            <li><a href="feedback.html">Feedback</a></li>
             <li><a href="dashboard.html">Dashboard</a></li>
             <li><a href="stats.html">Statistics</a></li>
-            <li><a href="admin.html">Admin Panel</a></li>
+            <li><a href="admin.html">Admin</a></li>
+            <li><a href="login.html">Logg ut</a></li>
         </ul>
     </nav>
 </header>
@@ -38,13 +40,13 @@
             <button class="red" onclick="sendFeedback('Misfornøyd')">🔴 Misfornøyd</button>
         </div>
 
-        <textarea id="feedbackText" placeholder="Skriv din tilbakemelding (maks 50 ord)" oninput="countWords()"></textarea>
+        <label for="feedbackText"></label><textarea id="feedbackText" placeholder="Skriv din tilbakemelding (maks 50 ord)" oninput="countWords()"></textarea>
         <p id="wordCount">0 / 50 ord</p>
     </div>
 
     <script>
         // Generer QR kode
-        var qr = new QRious({
+        let qr = new QRious({
             element: document.getElementById('qrCode'),
             value: window.location.href,
             size: 150

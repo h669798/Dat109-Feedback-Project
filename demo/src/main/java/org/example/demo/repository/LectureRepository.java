@@ -6,4 +6,7 @@ import java.util.List;
 
 public interface LectureRepository extends JpaRepositoryLlecture, Long> {
     List<Lecture> findById(long id);
+
+     List<Lecture> findByLecturer(Lecturer lecturer);
+
 }

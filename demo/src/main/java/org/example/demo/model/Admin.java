@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(schema = "Dat109FeedbackProject")
-public class admin {
+public class Admin {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int id;

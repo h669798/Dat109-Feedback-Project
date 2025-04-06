@@ -44,13 +44,8 @@ public class FeedbackService {
         return feedbackRepository.findByLecture(lecture);
     }
 
-    // Hent tilbakemeldinger for en student
-    public List<Feedback> getFeedbackByStudent(Long studentId) {
-        Student student = studentRepository.findById(studentId)
-                .orElseThrow(() -> new RuntimeException("Student not found"));
-
-        return feedbackRepository.findByStudent(student);
-    }
+  
+    
 
     // Slett tilbakemelding
     public void deleteFeedback(Long id) {

@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 
 @Entity
 
-@Table(name = "feedback")
+@Table(schema = "Dat109FeedbackProject")
 public class Feedback {
 
     @Id

@@ -1,33 +1,22 @@
 package org.example.demo.controller;
 
+import org.example.demo.service.FeedbackService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class DashboardController {
 
     @GetMapping("/dashboard")
-    public String dashboard() {
-        return "dashboard"; // Laster dashboard.html fra templates/
+    public String showDashboard(Model model) {
+        // Retrieve feedback from the database and add to model
+        model.addAttribute("feedbacks", FeedbackService.getAllFeedback());
+        return "dashboard";  // This will render dashboard.html
     }
 
-    @GetMapping("/admin")
-    public String admin() {
-        return "admin"; // Laster admin.html
-    }
-
-    @GetMapping("/stats")
-    public String stats() {
-        return "stats"; // Laster stats.html
-    }
-
-    @GetMapping("/login")
-    public String loginPage() {
-        return "login"; // Laster login.html
-    }
-
-    @GetMapping("/registrer")
-    public String registrerPage() {
-        return "registrer"; // Laster registrer.html
+    @GetMapping("/logout")
+    public String logout() {
+        return "redirect:/login";  // Redirect to login page after logout
     }
 }

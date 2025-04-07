@@ -53,8 +53,8 @@ public class Feedback {
         return type; 
     }
 
-    public void setType(FeedbackType type) { 
-        this.type = type; 
+    public void setType(FeedbackType type2) { 
+        this.type = type2; 
     }
 
     public String getComment() {

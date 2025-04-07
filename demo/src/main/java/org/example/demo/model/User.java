@@ -29,6 +29,18 @@ public abstract class User {
 
     // Getters og Setters
 
+    @ManyToOne
+@JoinColumn(name = "admin_id")
+private Admin admin;
+
+public Admin getAdmin() {
+    return admin;
+}
+
+public void setAdmin(Admin admin) {
+    this.admin = admin;
+}
+
     public Long getId() {
         return id;
     }

@@ -4,7 +4,7 @@ import java.util.List;
 
 import jakarta.persistence.*;
 @Entity
-@Table(schema = "Dat109FeedbackProject")
+
 @DiscriminatorValue("ADMIN")
 public class Admin extends User {
 

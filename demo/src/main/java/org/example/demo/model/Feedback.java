@@ -46,25 +46,46 @@ public class Feedback {
 
     public Feedback() {} // Tom konstruktør kreves av JPA
 
-    public Long getId() { return id; }
+    public Long getId() {
+         return id; }
 
-    public FeedbackType getType() { return type; }
+    public FeedbackType getType() { 
+        return type; 
+    }
 
-    public void setType(FeedbackType type) { this.type = type; }
+    public void setType(FeedbackType type) { 
+        this.type = type; 
+    }
 
-    public String getComment() { return comment; }
+    public String getComment() {
+         return comment;
+     }
 
-    public void setComment(String comment) { this.comment = comment; }
+    public void setComment(String comment) { 
+        this.comment = comment;
+    }
 
-    public LocalDateTime getTimestamp() { return timestamp; }
+    public LocalDateTime getTimestamp() {
+        return timestamp;
+     }
 
-    public void setTimestamp(LocalDateTime timestamp) { this.timestamp = timestamp; }
+    public void setTimestamp(LocalDateTime timestamp) { 
+        this.timestamp = timestamp;
+     }
 
-    public Lecture getLecture() { return lecture; }
+    public Lecture getLecture() {
+         return lecture; 
+        }
 
-    public void setLecture(Lecture lecture) { this.lecture = lecture; }
+    public void setLecture(Lecture lecture) { 
+        this.lecture = lecture; 
+    }
 
-    public Student getStudent() { return student; }
+    public Student getStudent() { 
+        return student; 
+    }
 
-    public void setStudent(Student student) { this.student = student; }
+    public void setStudent(Student student) { 
+        this.student = student; 
+    }
 }

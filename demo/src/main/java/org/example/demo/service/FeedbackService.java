@@ -77,6 +77,16 @@ public class FeedbackService {
             return feedbackRepository.save(feedback);
         }
     }
+
+    public void submitFeedback(Long lectureId, String type) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'submitFeedback'");
+    }
+
+    public List<Feedback> getFeedbackByStudent(Long studentId) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getFeedbackByStudent'");
+    }
     
 
 }

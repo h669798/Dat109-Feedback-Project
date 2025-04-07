@@ -2,7 +2,7 @@ package org.example.demo.service;
 
 import java.util.List;
 
-import org.example.demo.model.Admin;
+
 import org.example.demo.model.Lecture;
 import org.example.demo.model.User;
 import org.example.demo.repository.UserRepository;
@@ -37,10 +37,11 @@ public class AdminService {
         return userRepository.findAll();
     }
 
+    
+   
     public User createAdmin(User user) {
-        // Sjekk om brukeren er admin og sett rolle
-        if (user instanceof Admin) {
-            user.setRole();
+        if (!"admin".equalsIgnoreCase(user.getRole())) {
+            user.setRole(null); // Eller kast exception hvis du vil hindre det
         }
         return userRepository.save(user);
     }
@@ -49,5 +50,9 @@ public class AdminService {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'createUser'");
     }
+    
+
+   
+    
     
 }

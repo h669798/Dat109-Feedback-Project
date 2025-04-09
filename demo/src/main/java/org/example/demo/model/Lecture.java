@@ -6,32 +6,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(schema = "Dat109FeedbackProject")
+@Table(name = "lecture") // bruker default schema: public
 public class Lecture {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String topic;
-
     private LocalDate date;
 
     @ManyToOne
     @JoinColumn(name = "lecturer_id")
-    private Lecturer lecturer;
+    private User lecturer;
 
     @OneToMany(mappedBy = "lecture", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Feedback> feedbacks = new ArrayList<>();
 
-    // Getters and Setters
-
-
-    public void setId(long id){
-        this.id = id;
-    }
+    // Getters og setters
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getTopic() {
@@ -50,11 +47,11 @@ public class Lecture {
         this.date = date;
     }
 
-    public Lecturer getLecturer() {
+    public User getLecturer() {
         return lecturer;
     }
 
-    public void setLecturer(Lecturer lecturer) {
+    public void setLecturer(User lecturer) {
         this.lecturer = lecturer;
     }
 
@@ -66,23 +63,15 @@ public class Lecture {
         this.feedbacks = feedbacks;
     }
 
-    // Feedback counting helpers
-
     public long countGreenFeedback() {
-        return feedbacks.stream()
-                .filter(f -> f.getType() == FeedbackType.GREEN)
-                .count();
+        return feedbacks.stream().filter(f -> f.getType() == FeedbackType.GREEN).count();
     }
 
     public long countYellowFeedback() {
-        return feedbacks.stream()
-                .filter(f -> f.getType() == FeedbackType.YELLOW)
-                .count();
+        return feedbacks.stream().filter(f -> f.getType() == FeedbackType.YELLOW).count();
     }
 
     public long countRedFeedback() {
-        return feedbacks.stream()
-                .filter(f -> f.getType() == FeedbackType.RED)
-                .count();
+        return feedbacks.stream().filter(f -> f.getType() == FeedbackType.RED).count();
     }
 }

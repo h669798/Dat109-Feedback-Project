@@ -23,14 +23,14 @@
 
 <main>
     <div class="container">
-        <form class="login-form">
+        <form th:action="@{/login}" method="post">
             <h2>Logg inn</h2>
-            <br>
-            <input type="text" placeholder="Mobilnummer" required>
-            <input type="password" placeholder="Passord" required>
+            <input type="text" name="username" placeholder="Mobilnummer" required />
+            <input type="password" name="password" placeholder="Passord" required />
             <button type="submit">Logg inn</button>
             <p>Har du ikke konto? <a th:href="@{/registrer}">Registrer deg her</a></p>
         </form>
+
     </div>
 </main>
 

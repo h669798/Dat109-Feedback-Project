@@ -1,15 +1,12 @@
 package org.example.demo.controller;
 
+import org.example.demo.model.Feedback;
+import org.example.demo.model.FeedbackType;
 import org.example.demo.service.FeedbackService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/feedback")
@@ -18,24 +15,34 @@ public class FeedbackController {
     @Autowired
     private FeedbackService feedbackService;
 
+    // Gi tilbakemelding (uten student = anonym)
     @PostMapping("/give")
     public String giveFeedback(@RequestParam Long lectureId,
                                @RequestParam String type,
+                               @RequestParam(required = false) String phone,
+                               @RequestParam(required = false) String comment,
                                Model model) {
-        feedbackService.submitFeedback(lectureId, type);
+        Feedback feedback = new Feedback();
+        feedback.setType(FeedbackType.valueOf(type.toUpperCase())); // Konverterer string til enum
+        feedback.setComment(comment);
+
+        feedbackService.submitFeedback(lectureId, phone, feedback);
+
         model.addAttribute("message", "Takk for tilbakemeldingen!");
-        return "feedback"; // templates/feedbackSuccess.html
+        return "feedback"; // f.eks. feedback.html
     }
 
+    // Vis tilbakemeldinger for én forelesning
     @GetMapping("/lecture/{lectureId}")
     public String getFeedbackForLecture(@PathVariable Long lectureId, Model model) {
         model.addAttribute("feedbackList", feedbackService.getFeedbackForLecture(lectureId));
-        return "feedback"; // templates/feedbackForLecture.html
+        return "feedbackForLecture"; // f.eks. feedbackForLecture.html
     }
 
-    @GetMapping("/student/{studentId}")
-    public String getFeedbackByStudent(@PathVariable Long studentId, Model model) {
-        model.addAttribute("feedbackList", feedbackService.getFeedbackByStudent(studentId));
-        return "feedback"; // templates/feedbackByStudent.html
+    // Vis tilbakemeldinger for én student (basert på mobil)
+    @GetMapping("/student/{phone}")
+    public String getFeedbackByStudent(@PathVariable String phone, Model model) {
+        model.addAttribute("feedbackList", feedbackService.getFeedbackByStudent(phone));
+        return "feedbackByStudent"; // f.eks. feedbackByStudent.html
     }
 }

@@ -5,8 +5,6 @@ import org.example.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
-
 @Service
 public class UserService {
 
@@ -17,28 +15,30 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public User loginUser(String username, String password) {
-        User user = userRepository.findByUsername(username);
-        if (user != null && user.getPassword().equals(password)) {
-            return user;
-        }
-        throw new RuntimeException("Invalid username or password");
+    public User loginUser(String phone, String password) {
+        return userRepository.findByPhone(phone)
+                .filter(user -> user.getPassword().equals(password))
+                .orElseThrow(() -> new RuntimeException("Invalid phone or password"));
     }
 
     public User loginUser(User user) {
-        return loginUser(user.getUsername(), user.getPassword());
+        return loginUser(user.getPhone(), user.getPassword());
     }
 
     public User registerUser(User user) {
-        // Her kan du legge til sjekk om brukernavn allerede finnes
-        if (userRepository.findByUsername(user.getUsername()) != null) {
-            throw new RuntimeException("Username already taken");
+        if (userRepository.existsByPhone(user.getPhone())) {
+            throw new RuntimeException("Phone number already registered");
         }
+
+        if (user.getRole() == null || user.getRole().isBlank()) {
+            user.setRole("student");
+        }
+
         return userRepository.save(user);
     }
 
-    public User getUserById(Long id) {
-        return userRepository.findById(id)
+    public User getUserByPhone(String phone) {
+        return userRepository.findByPhone(phone)
                 .orElseThrow(() -> new RuntimeException("User not found"));
     }
 }

@@ -1,7 +1,7 @@
 package org.example.demo.service;
 
 import org.example.demo.model.Lecture;
-import org.example.demo.model.Lecturer;
+import org.example.demo.model.User;
 import org.example.demo.repository.LectureRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,7 +41,7 @@ public class LectureService {
         lectureRepository.deleteById(id);
     }
 
-    public List<Lecture> getLecturesByLecturer(Lecturer lecturer) {
+    public List<Lecture> getLecturesByLecturer(User lecturer) {
         return lectureRepository.findByLecturer(lecturer);
     }
 

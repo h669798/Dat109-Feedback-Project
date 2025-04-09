@@ -4,8 +4,7 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-
-@Table(schema = "Dat109FeedbackProject")
+@Table(name = "feedback")
 public class Feedback {
 
     @Id
@@ -24,10 +23,10 @@ public class Feedback {
     @JoinColumn(name = "lecture_id")
     private Lecture lecture;
 
-    // Student er valgfritt for anonymitet
+    // Bruker i stedet for Student (for anonymitet kan det være null)
     @ManyToOne
     @JoinColumn(name = "student_id")
-    private Student student;
+    private User student;
 
     // Konstruktør uten student (anonym)
     public Feedback(FeedbackType type, String comment, Lecture lecture) {
@@ -37,55 +36,56 @@ public class Feedback {
     }
 
     // Konstruktør med student
-    public Feedback(FeedbackType type, String comment, Lecture lecture, Student student) {
+    public Feedback(FeedbackType type, String comment, Lecture lecture, User student) {
         this.type = type;
         this.comment = comment;
         this.lecture = lecture;
         this.student = student;
     }
 
-    public Feedback() {} // Tom konstruktør kreves av JPA
+    public Feedback() {} // JPA krever tom konstruktør
 
     public Long getId() {
-         return id; }
-
-    public FeedbackType getType() { 
-        return type; 
+        return id;
     }
 
-    public void setType(FeedbackType type2) { 
-        this.type = type2; 
+    public FeedbackType getType() {
+        return type;
+    }
+
+    public void setType(FeedbackType type) {
+        this.type = type;
     }
 
     public String getComment() {
-         return comment;
-     }
+        return comment;
+    }
 
-    public void setComment(String comment) { 
+    public void setComment(String comment) {
         this.comment = comment;
     }
 
     public LocalDateTime getTimestamp() {
         return timestamp;
-     }
+    }
 
-    public void setTimestamp(LocalDateTime timestamp) { 
+    public void setTimestamp(LocalDateTime timestamp) {
         this.timestamp = timestamp;
-     }
+    }
 
     public Lecture getLecture() {
-         return lecture; 
-        }
-
-    public void setLecture(Lecture lecture) { 
-        this.lecture = lecture; 
+        return lecture;
     }
 
-    public Student getStudent() { 
-        return student; 
+    public void setLecture(Lecture lecture) {
+        this.lecture = lecture;
     }
 
-    public void setStudent(Student student) { 
-        this.student = student; 
+    public User getStudent() {
+        return student;
+    }
+
+    public void setStudent(User student) {
+        this.student = student;
     }
 }

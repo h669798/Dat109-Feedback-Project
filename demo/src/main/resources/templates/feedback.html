@@ -23,29 +23,32 @@
     </nav>
 </header>
 <main>
-    <!--TODO: Ta QR kode et annet sted? Legge det ved Admin Panel så lærer kan vise?
-        TODO: Ha en "enter" knapp for tilbakemeldingen.
-        TODO: Man bør kunne velge knapp for tilbakemelding + legge inn tekst før man sender.
-        TODO: Koble tilbakemeldingen opp mot databasen så man kan se tilbake på den. -->
     <div class="container">
         <h2>Gi tilbakemelding</h2>
-        <br>
         <p>Skann QR-koden for å gi tilbakemelding fra mobilen din:</p>
-        <br><br>
+        <br>
         <canvas id="qrCode"></canvas>
         <br><br>
-        <div class="buttons">
-            <button class="green" onclick="sendFeedback('Fornøyd')">🟢 Fornøyd</button>
-            <button class="yellow" onclick="sendFeedback('Passe fornøyd')">🟡 Passe fornøyd</button>
-            <button class="red" onclick="sendFeedback('Misfornøyd')">🔴 Misfornøyd</button>
-        </div>
 
-        <label for="feedbackText"></label><textarea id="feedbackText" placeholder="Skriv din tilbakemelding (maks 50 ord)" oninput="countWords()"></textarea>
-        <p id="wordCount">0 / 50 ord</p>
+        <form th:action="@{/feedback/give}" method="post">
+            <input type="hidden" name="lectureId" value="1" /> <!-- Endre til faktisk forelesnings-ID -->
+            <input type="hidden" id="typeInput" name="type" value="" />
+            <input type="hidden" name="phone" th:value="${#authentication.name}" />
+
+            <div class="buttons">
+                <button type="button" class="green" onclick="selectType('FORNØYD')">🟢 Fornøyd</button>
+                <button type="button" class="yellow" onclick="selectType('PASSE_FORNØYD')">🟡 Passe fornøyd</button>
+                <button type="button" class="red" onclick="selectType('MISFORNØYD')">🔴 Misfornøyd</button>
+            </div>
+
+            <textarea id="feedbackText" name="comment" placeholder="Skriv din tilbakemelding (maks 50 ord)" oninput="countWords()"></textarea>
+            <p id="wordCount">0 / 50 ord</p>
+
+            <br><button type="submit">Send tilbakemelding</button>
+        </form>
     </div>
 
     <script>
-        // Generer QR kode
         let qr = new QRious({
             element: document.getElementById('qrCode'),
             value: window.location.href,
@@ -61,8 +64,8 @@
             document.getElementById("wordCount").innerText = words.length + " / 50 ord";
         }
 
-        function sendFeedback(choice) {
-            alert("Takk for din tilbakemelding: " + choice);
+        function selectType(type) {
+            document.getElementById("typeInput").value = type;
         }
     </script>
 </main>

@@ -1,10 +1,7 @@
 <!doctype html>
-<html lang=no>
+<html lang="no">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" th:href="@{/css/styles.css}"/>
     <title>Dashboard</title>
 </head>
@@ -21,17 +18,29 @@
         </ul>
     </nav>
 </header>
+
 <main>
     <div class="container">
-        <h2>Oversikt over tilbakemeldinger</h2>
-        <br>
-        <div class="feedback-list"> <!--TODO: Erstatt disse med faktiske tilbakemeldinger. Krever henting fra database.-->
-            <p><strong>Student 1:</strong> "Veldig bra forelesning!"</p><br>
-            <p><strong>Student 2:</strong> "Ønsker mer praktiske oppgaver."</p><br>
-            <p><strong>Student 3:</strong> "Fint opplegg, men tempoet er litt raskt."</p>
+        <h2>Mine Forelesninger</h2>
+        <div th:if="${lectures.empty}">
+            <p>Ingen forelesninger å vise.</p>
+        </div>
+        <div th:if="${not lectures.empty}">
+            <ul>
+                <li th:each="lecture : ${lectures}">
+                    <!-- Viser f.eks. emnekode eller topic -->
+                    <strong th:text="${lecture.topic}"></strong>
+                    <br/>
+                    <!-- Lenke for å se feedback for denne lecture -->
+                    <a th:href="@{/feedback/lecture/{lectureId}(lectureId=${lecture.id})}">
+                        Se tilbakemeldinger
+                    </a>
+                </li>
+            </ul>
         </div>
     </div>
 </main>
+
 <footer>
     <p>&copy; 2025 Feedback System</p>
 </footer>

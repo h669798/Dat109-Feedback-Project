@@ -32,6 +32,11 @@ public class FeedbackController {
         return "feedback"; // f.eks. feedback.html
     }
 
+    @GetMapping
+    public String showFeedbackPage() {
+        return "feedback";
+    }
+
     // Vis tilbakemeldinger for én forelesning
     @GetMapping("/lecture/{lectureId}")
     public String getFeedbackForLecture(@PathVariable Long lectureId, Model model) {

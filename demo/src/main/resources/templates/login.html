@@ -1,36 +1,41 @@
 <!doctype html>
-<html lang=no>
+<html lang="no" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" th:href="@{/css/styles.css}"/>
     <title>Logg inn</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}"/>
 </head>
 <body>
 <header>
     <nav>
         <ul>
             <li><a th:href="@{/}">Hjem</a></li>
-            <li><a th:href="@{/feedback}">Feedback</a></li>
-            <li><a th:href="@{/dashboard}">Dashboard</a></li>
-            <li><a th:href="@{/stats}">Statistics</a></li>
-            <li><a th:href="@{/admin}">Admin</a></li>
         </ul>
     </nav>
 </header>
 
 <main>
+    <nav>
     <div class="container">
+        <div th:if="${param.error}" style="color:red;">
+            Ugyldig brukernavn eller passord!
+        </div>
+        <div th:if="${param.logout}" style="color:green;">
+            Du er nå logget ut.
+        </div>
         <form th:action="@{/login}" method="post">
             <h2>Logg inn</h2>
             <input type="text" name="username" placeholder="Mobilnummer" required />
             <input type="password" name="password" placeholder="Passord" required />
             <button type="submit">Logg inn</button>
-            <p>Har du ikke konto? <a th:href="@{/registrer}">Registrer deg her</a></p>
-        </form>
 
+            <p>Har du ikke konto?
+                <a th:href="@{/registrer}">Registrer deg her</a>
+            </p>
+        </form>
     </div>
 </main>
 

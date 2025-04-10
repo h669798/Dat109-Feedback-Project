@@ -15,7 +15,7 @@ import java.util.List;
 public class FeedbackService {
 
     @Autowired
-    private static FeedbackRepository feedbackRepository;
+    private FeedbackRepository feedbackRepository;
 
     @Autowired
     private LectureRepository lectureRepository;
@@ -60,7 +60,7 @@ public class FeedbackService {
     }
 
     // 4. Hent alle tilbakemeldinger
-    public static List<Feedback> getAllFeedback() {
+    public List<Feedback> getAllFeedback() {
         return feedbackRepository.findAll();
     }
 

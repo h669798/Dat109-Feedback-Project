@@ -1,34 +1,32 @@
 package org.example.demo.model;
 
 import jakarta.persistence.*;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "lecture") // bruker default schema: public
+@Table(name = "lecture")
 public class Lecture {
 
+    // Variabler:
     @Id
+    @Column(name = "lecture_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String topic;
-    private LocalDate date;
+    private LocalDateTime date;
 
     @ManyToOne
-    @JoinColumn(name = "lecturer_id")
+    @JoinColumn(name = "lecturer_phone", referencedColumnName = "phone", nullable = false)
     private User lecturer;
 
     @OneToMany(mappedBy = "lecture", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Feedback> feedbacks = new ArrayList<>();
 
-    // Getters og setters
+    // Getters og Setters:
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getTopic() {
@@ -39,11 +37,11 @@ public class Lecture {
         this.topic = topic;
     }
 
-    public LocalDate getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 
